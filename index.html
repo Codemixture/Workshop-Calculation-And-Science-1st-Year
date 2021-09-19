@@ -1,0 +1,1278 @@
+<meta content="width=device-width, initial-scale=1" name="viewport">
+
+	<style>
+	@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+
+
+body{
+	margin: 0;
+	font-size: 16px;
+	background-color: #FFFFFF;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 400;
+}
+
+*{
+	box-sizing: border-box;
+	margin:0;
+	padding:0;
+	outline: none;
+}
+
+.custom-box{
+	max-width: 700px;
+	background-color: #ffffff;
+	margin:40px auto;
+	padding: 30px;
+	border-radius: 10px;
+	animation: fadeInRight 1s ease;
+}
+@keyframes fadeInRight{
+	0%{
+		transform: translateX(40px);
+		opacity:0;
+	}
+	100%{
+	  transform: translateX(0px);	
+	  opacity:1;
+	}
+}
+.custom-box::before,
+.custom-box::after{
+	content: '';
+	clear: both;
+	display: table;
+}
+.custom-box.hide{
+	display: none;
+}
+
+.home-box h3{
+	font-size: 18px;
+	color:#000000;
+	font-weight: 500;
+	margin-bottom: 15px;
+	line-height: 25px;
+}
+
+.home-box p{
+	font-size: 16px;
+	margin-bottom: 10px;
+	line-height: 22px;
+	color:#000000;
+	font-weight: 400;
+}
+.home-box p span{
+	font-weight: 500;
+}
+.home-box .btn{
+  margin-top: 20px;
+}
+.btn{
+	padding: 15px 45px;
+	background-color: #009688;
+	color:#ffffff;
+	border:none;
+	border-radius: 5px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 16px;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.quiz-box .question-number,
+.quiz-box .question-text,
+.quiz-box .option-container,
+.quiz-box .next-question-btn,
+.quiz-box .answers-indicator{
+   width: 100%;
+   float: left;
+}
+.quiz-box .question-number{
+	font-size: 18px;
+	color:#009688;
+	font-weight: 600;
+	border-bottom:1px solid #cccccc;
+	padding-bottom: 10px;
+	line-height: 25px
+}
+.quiz-box .question-text{
+	font-size: 22px;
+	color:#000000;
+	line-height: 28px;
+	font-weight: 400;
+	padding: 20px 0;
+	margin:0;
+}
+
+.quiz-box .option-container .option{
+	background-color: #cccccc;
+	padding:13px 15px;
+	font-size: 16px;
+	line-height: 22px;
+	color:#000000;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	text-transform: capitalize;
+	opacity:0;
+	animation: fadeIn 0.3s ease forwards;
+	position: relative;
+	overflow:hidden;
+}
+.quiz-box .option-container .option.already-answered{
+	pointer-events: none;
+}
+@keyframes fadeIn{
+	0%{
+		opacity:0;
+	}
+	100%{
+		opacity: 1;
+	}
+}
+.quiz-box .option-container .option.correct::before{
+ content: '';
+ position: absolute;
+ left:0;
+ top:0;
+ height: 100%;
+ width: 100%;
+ background-color: green;
+ z-index: -1;
+ animation: slideInLeft .5s ease forwards
+}
+@keyframes slideInLeft{
+	0%{
+		transform: translateX(-100%);
+	}
+	100%{
+	 transform: translateX(0%);	
+	}
+}
+.quiz-box .option-container .option.wrong::before{
+ content: '';
+ position: absolute;
+ left:0;
+ top:0;
+ height: 100%;
+ width: 100%;
+ background-color: red;
+ z-index: -1;
+ animation: slideInLeft .5s ease forwards
+}
+.quiz-box .option-container .option.wrong{
+	color:#ffffff;
+}
+.quiz-box .option-container .option.correct{
+	color:#ffffff;
+}
+.quiz-box .btn{
+	margin:15px 0;
+}
+.quiz-box .answers-indicator{
+	border-top: 1px solid #cccccc;
+}
+.quiz-box .answers-indicator div{
+	height: 40px;
+	width: 40px;
+	display: inline-block;
+	background-color: #cccccc;
+	border-radius: 50%;
+	margin-right: 3px;
+	margin-top: 15px;
+}
+.quiz-box .answers-indicator div.correct{
+	background-color: green;
+	background-image: url("../img/correct.png");
+	background-size: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.quiz-box .answers-indicator div.wrong{
+	background-color: red;
+	background-image: url("../img/wrong.png");
+	background-size: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.result-box{
+	text-align: center;
+}
+.result-box.hide{
+	display: none;
+}
+
+.result-box h1{
+	font-size: 36px;
+	line-height: 42px;
+	color:#009688;
+}
+.result-box table{
+	width: 100%;
+	border-collapse: collapse;
+	margin:30px 0;
+}
+.result-box table td{
+	border:1px solid #cccccc;
+	padding:8px 15px;
+	font-weight: 500;
+	color:#000000;
+	width: 50%;
+	text-align: left;
+	font-size: 18px;
+}
+.result-box .btn{
+	margin-right: 20px;
+}
+
+
+@media(max-width: 767px){
+	.result-box .btn{
+		margin-bottom: 15px;
+	}
+	body{
+		padding: 15px;
+	}
+}
+
+	</style>
+
+
+
+
+
+  <div class="home-box custom-box">
+      <h3>Instruction:</h3>
+      <p>Total number of questions: <span class="total-question"></span></p>
+      <button class="btn" onclick="startQuiz()" type="button">Start Quiz</button>
+  </div>
+
+  <div class="quiz-box custom-box hide">
+      <div class="question-number">
+          
+      </div>
+      <div class="question-text">
+         
+      </div>
+      <div class="option-container">
+          
+      </div>
+      <div class="next-question-btn">
+         <button class="btn" onclick="next()" type="button">Next</button>
+      </div>
+      <div class="answers-indicator">
+        
+      </div>
+  </div>
+
+  <div class="result-box custom-box hide">
+      <h2>Quiz Result</h2>
+      <table>
+         <tbody><tr>
+             <td>Total Question</td>
+             <td><span class="total-question"></span></td>
+         </tr>
+         <tr>
+             <td>Attempt</td>
+             <td><span class="total-attempt"></span></td>
+         </tr>
+         <tr>
+             <td>Correct</td>
+             <td><span class="total-correct"></span></td>
+         </tr>
+         <tr>
+             <td>Wrong</td>
+             <td><span class="total-wrong"></span></td>
+         </tr>
+         <tr>
+             <td>Percentage</td>
+             <td><span class="percentage"></span></td>
+         </tr>
+         <tr>
+             <td>Your Total Score</td>
+             <td><span class="total-score"></span></td>
+         </tr>
+      </tbody></table>
+      <button class="btn" onclick="tryAgainQuiz()" type="button">Try Again</button>
+      <button class="btn" onclick="goToHome()" type="button">Go To Home</button>
+  </div>
+
+<script>
+  
+
+    // Question Setup
+ // Array of Objects
+ const quiz = [
+   {
+     question:"Q. What are the two classifications of system of units? | इक&#2366;इय&#2379;&#2306; क&#2368; प&#2381;रण&#2366;ल&#2368; क&#2375; द&#2379; प&#2381;रक&#2366;र क&#2379;नस&#2375; ह&#2376;&#2306;?",
+           options:["(A) British and Metric | ब&#2381;र&#2367;ट&#2367;श और म&#2376;ट&#2381;र&#2367;क ","(B) Gravitational and non-gravitational | ग&#2369;र&#2369;त&#2381;व&#2366;कर&#2381;षण और ग&#2376;र-ग&#2369;र&#2369;त&#2381;व&#2366;कर&#2381;षण","(C) Fundamental and derived | म&#2380;ल&#2367;क और व&#2381;य&#2369;त&#2381;पन&#2381;न","(D) Metric and International | म&#2376;ट&#2381;र&#2367;क और इ&#2306;टरन&#2375;शनल "],
+           answer:2,
+       },
+       {
+           question:"Q. What are fundamental units? | इनम&#2375; स&#2375; म&#2370;लभ&#2370;त इक&#2366;इय&#2366;&#2306; क&#2379;न-क&#2379;नस&#2368; ह&#2376;&#2306;?",
+           options:["(A) Length, Mass, Volume | ल&#2306;ब&#2366;ई, द&#2381;रव&#2381;यम&#2366;न, आयतन","B) Length, Mass, Time | ल&#2306;ब&#2366;ई, द&#2381;रव&#2381;यम&#2366;न, समय","(C) Length, Mass, Area | ल&#2306;ब&#2366;ई, द&#2381;रव&#2381;यम&#2366;न, क&#2381;ष&#2375;त&#2381;रफल","(D) Length, Pressure, Volume | ल&#2306;ब&#2366;ई, द&#2366;ब , आयतन"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What denotes letter M in MKS system? | MKS प&#2381;रण&#2366;ल&#2368; म&#2375;&#2306; M अक&#2381;षर क&#2381;य&#2366; दर&#2381;श&#2366;त&#2366;  ह&#2376;?",
+           options:["(A) Mile | म&#2368;ल","(B) Meter | म&#2368;टर ","(C) Millimeter | म&#2367;ल&#2368;म&#2368;टर ","(D) Micron | म&#2366;इक&#2381;र&#2379;न"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. How many millimetres are there in 1 inch? | 1 इ&#2306;च म&#2375;&#2306;	कतन&#2375; मल&#2368;म&#2368;&#2367;र ह&#2379;त&#2375; ह&#2376;&#2306;?",
+           options:["(A) 2.54 mm | 2.54 mm  ","(B) 25.4 mm | 25.4 mm  ","(C) 24.5 mm | 24.5 mm","(D) 2.45 mm | 2.45 mm"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is the LCM of 12, 18, 6, 36? | 12, 18, 6, 36 क&#2366; LCM क&#2367;तन&#2366; ह&#2379;ग&#2366;?",
+           options:["(A) 12","(B) 18","(C) 36","(D) 42"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the improper fraction for the given mixed fraction ? | द&#2368; गई म&#2367;श&#2381;र भ&#2367;न&#2381;न क&#2368; अन&#2369;च&#2367;त भ&#2367;न&#2381;न क&#2379;नस&#2368; ह&#2376;?<br /><img src='https://1.bp.blogspot.com/-m8a_wUTIk4I/X7yXNmR1WII/AAAAAAAAHLc/bPYiGQLzDPMMggYjM2Vz4zmZfMHQC0dhgCLcBGAsYHQ/s0/mishr-bhinn.png'>",
+           options:["(A) 52/7 ","(B) 7/52 ","(C) 28/7 ","(D) 7/28 "],
+           answer:0,
+           
+       },
+       {
+           question:"Q. Convert decimal 0.000659 to fraction? | 0.000659 दशमलव भन&#2381;न क&#2379; स&#2366;ध&#2366;रण भन&#2381;न म&#2375;&#2306; बदल&#2375;&#2306;?",
+           options:["(A) <br /><img src='https://1.bp.blogspot.com/-zg2M7eJIutk/X7yZLe4rN5I/AAAAAAAAHMA/qFoqfIOEPhMJOJzl_bqzHlHqd2XGUiY0wCLcBGAsYHQ/s0/bhinn-a.png'>","(B) <br /><img src='https://1.bp.blogspot.com/-oMeAR9Cl7_c/X7yZLRDHiPI/AAAAAAAAHME/IS5RtLs2odYzmmusps7IzAITqArLqFktgCLcBGAsYHQ/s0/bhinn-b.png'>","(C) <br /><img src=' https://1.bp.blogspot.com/-C0tZnLyY7jo/X7yZLXbYZxI/AAAAAAAAHMI/AxJ_iUe0kk41yncDZwUyohqmzY2PXsFwACLcBGAsYHQ/s0/bhinn-c.png'>","(D) <br /><img src='https://1.bp.blogspot.com/-2vhQu3SfpG0/X7yZMEbcHuI/AAAAAAAAHMM/kzjfZLsI_7AASrJRlGeDq6kFEYWTMDYAgCLcBGAsYHQ/s0/bhinn-d.png'>"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. Simplify: | सरल क&#2368;ज&#2367;य&#2375;-<br /><img src='https://1.bp.blogspot.com/-vVSiltj_V-U/X7yZ156VqGI/AAAAAAAAHMc/uBcazE1Y5IMa6cV8TQ96MNc6m2t2kDS_gCLcBGAsYHQ/s0/bhinn-001.png'>",
+           options:["(A) 3/10 ","(B) 9/10 ","(C) 12/10 ","(D) 13/10 "],
+           answer:1,
+           
+       },
+       {
+           question:"Q. Divide: | भ&#2366;ग द&#2368;ज&#2367;य&#2375;-<br /><img src='https://1.bp.blogspot.com/-TehHSiIhEDI/X7yaopkj1lI/AAAAAAAAHMo/47a8qgFuTuwdeUVd-dIjZIbXrHXMXYXfgCLcBGAsYHQ/s0/bhinn-0002.png'>",
+           options:["(A) 10/3 ","(B) 7/3 ","(C) 7/2 ","(D) 8/3 "],
+           answer:3,
+           
+       },
+       {
+           question:"Q. Simplify: | सरल क&#2368;ज&#2367;य&#2375;-<br /><img src='https://1.bp.blogspot.com/-8Vx2oayHZL8/X8GrLFF8NyI/AAAAAAAAHNI/_2lU-pJO5T4clIBgQrHuOsUm7j6ItdW8QCLcBGAsYHQ/s0/bhinn0041.png'>",
+           options:["(A) 13.69","(B) 13.79","(C) 13.89","(D) 13.99"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is the length of each part is a copper wire of 225 metre long is cut into 900 equal parts? | यद&#2367; क&#2367;स&#2368;  225 म&#2368;टर ल&#2306;ब&#2375; त&#2366;&#2306;ब&#2375; क&#2375; त&#2366;र क&#2379; 900 बर&#2366;बर भ&#2366;ग&#2379;&#2306; म&#2375; क&#2366;ट&#2366; ज&#2366;य त&#2379; प&#2381;रत&#2381;य&#2375;क भ&#2366;ग क&#2368; लम&#2381;ब&#2366;ई क&#2367;तन&#2368; ह&#2379;ग&#2368;?",
+           options:["(A) 0.23 metre  ","(B) 0.25 metre  ","(C) 0.28 metre  ","(D) 0.29 metre"],
+           answer:1,
+           
+       },
+                {
+           question:"Q. What is the square root of 529? | 529 क&#2366; वर&#2381;गम&#2370;ल क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) 13 ","(B) 23 ","(C) 33 ","(D) 43 "],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is the square root of 0.017? | 0.017 क&#2366; वर&#2381;गम&#2370;ल क&#2381;य&#2366; ह&#2376;? ",
+           options:["(A) 0.001","(B) 0.13","(C) 0.00001","(D) 0.000001"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is the definition of ratio? | अन&#2369;प&#2366;त क&#2368; पर&#2367;भ&#2366;ष&#2366; क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) Relation of two quantities of the same kind | एक ह&#2368; तरह क&#2368; द&#2379; म&#2366;त&#2381;र&#2366;ओ&#2306; क&#2366; स&#2306;ब&#2306;ध","(B) Relation of two quantities of the different kind | व&#2367;भ&#2367;न&#2381;न प&#2381;रक&#2366;र क&#2368; द&#2379; म&#2366;त&#2381;र&#2366;ओ&#2306; क&#2366; स&#2306;ब&#2306;ध","(C) Equality between two ratios | द&#2379; अन&#2369;प&#2366;त&#2379;&#2306; क&#2375; ब&#2368;च सम&#2366;नत&#2366;","(D) Inequality between two ratios | द&#2379; अन&#2369;प&#2366;त&#2379;&#2306; क&#2375; ब&#2368;च असम&#2366;नत&#2366; "],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What is the ratio of 4 kg to 800 grams? | 4 क&#2367;ल&#2379; ओर 800 ग&#2381;र&#2366;म म&#2375; क&#2381;य&#2366; अन&#2369;प&#2366;त ह&#2376;?",
+           options:["(A) 5 : 1","(B) 4 : 8","(C) 8 : 4","(D) 2 : 4"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What percentage of 80 is 20? | 80 क&#2366; 20 प&#2381;रत&#2367;शत क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) 0.8","(B) 0.4","(C) .25","(D) 0.2"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. How much is 8% of 40 kg? | 40 kg क&#2366; 8 प&#2381;रत&#2367;शत क&#2367;तन&#2366; ह&#2376;?",
+           options:["(A) 2.2 kg ","(B) 3.2 kg  ","(C) 4.2 kg  ","(D) 5.2 kg"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. Convert 0.456 decimal fraction into percentage? | 0.456 दशमलव भ&#2367;न&#2381;न क&#2379; प&#2381;रत&#2367;शत म&#2375;&#2306; बदल&#2367;ए?",
+           options:["(A) 45.6%","(B) 0.0456%","(C) 0.456%","(D) 0.0456%"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What is the x value for x2 + 62 = 102? | x2 + 62 = 102 क&#2375; ल&#2367;ए x म&#2366;न क&#2381;य&#2366; ह&#2376;? ",
+           options:["(A) 4","(B) 6","(C) 8","(D) 10"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the side AB if AC = 10 cm and BC = 6 cm? | यद&#2367;  AC = 10 स&#2375;म&#2368; और BC = 6 स&#2375;म&#2368; ह&#2376;, त&#2379; AB भ&#2369;ज&#2366; क&#2366; म&#2366;न क&#2381;य&#2366; ह&#2376;?<br /><img src='https://1.bp.blogspot.com/-lF7AsvD-kjM/X8G5I9HsUJI/AAAAAAAAHNU/g8Sjaft-4l4zs4P_3ZgTY5gWZgRJ2zVTgCLcBGAsYHQ/s0/triangal0012.png'>",
+           options:["(A) 8 cm ","(B) 6 cm  ","(C) 5 cm ","(D) 4 cm"],
+           answer:3,
+           
+       },
+      {
+           question:"Q. What is the side AB, if BC = 15 cm and AC = 9 cm? | यद&#2367; BC = 15 स&#2375;म&#2368; और AC = 9 स&#2375;म&#2368; ह&#2376; त&#2379; AB भ&#2369;ज&#2366; क&#2366; म&#2366;न क&#2381;य&#2366; ह&#2376;?<br /><img src='https://1.bp.blogspot.com/-xUx5InKbcqc/X8Ov1krp9JI/AAAAAAAAHPY/K8haeiVcpzIPRJf-a7nlHQBH-1YwTurkACLcBGAsYHQ/s0/triangal2.png'>",
+           options:["(A) 4 cm","(B) 8 cm","(C) 10 cm","(D) 12 cm"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is the length L2, if total length (L) is 2.75 metre and L1 : L2 = 2 : 3? | यद&#2367; क&#2369;ल ल&#2306;ब&#2366;ई (L) 2.75 म&#2368;टर और L1: L2 = 2: 3 ह&#2376;? त&#2379; L2 क&#2366; म&#2366;न क&#2381;य&#2366; ह&#2379;ग&#2366;?",
+           options:["(A) 1.1 metre","(B) 1.25 metre ","(C) 1.65 metre","(D) 1.75 metre"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. How many days a mechanic takes to assemble 64 machines if he assembles 8 machines in 3 days? | यद&#2367; एक म&#2375;क&#2375;न&#2367;क ट&#2375;क क&#2379; 8 मश&#2368;न&#2379;&#2306; क&#2379; अस&#2375;&#2306;बल करन&#2375; 3 द&#2367;न लगत&#2375; ह&#2376; त&#2379; उस&#2375; 64 मश&#2368;न&#2379;&#2306; क&#2379; अस&#2375;&#2306;बल करन&#2375; म&#2375;&#2306; क&#2367;तन&#2375; द&#2367;न लग&#2375;&#2306;ग&#2375;?",
+           options:["(A) 20 days ","(B) 22 days","(C) 24 days","(D) 26 days"],
+           answer:2,
+       },
+       {
+           question:"Q. What is the percentage of copper if the casting weight of copper 42.3 kg and tin weight 2.7 kg? | यद&#2367; क&#2366;स&#2381;ट&#2367;&#2306;ग म&#2375; त&#2366;&#2306;ब&#2375; क&#2366; वजन 42.3 कल&#2379;ग&#2381;र&#2366;म और ट&#2367;न क&#2366; वजन 2.7 कल&#2379;ग&#2381;र&#2366;म ह&#2376; त&#2379; त&#2366;&#2306;ब&#2375; क&#2366; प&#2381;रत&#2367;शत क&#2381;य&#2366; ह&#2379;ग&#2366;? ",
+           options:["(A) Cu 92%","B) Cu 94% ","(C) Cu 96%  ","(D) Cu 98%"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. A motor cycle tyre is sold for Rs 300/- what is the purchase price if 25%profit is added to it. | यद&#2367; एक म&#2379;टरस&#2366;इकल क&#2379; 300/- म&#2375;&#2306; ब&#2375;च&#2366; ज&#2366;त&#2366; ह&#2376;, ओर उस&#2375; 25% ल&#2366;भ ह&#2379;त&#2366; ह&#2376; त&#2379; खर&#2368;द क&#2366; म&#2370;ल&#2381;य क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) Rs 200  ","(B) Rs 220  ","(C) Rs 240  ","(D) Rs 260"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the decimal fraction of conversion of 18.5%? | 18.5% क&#2379; दशमलव भ&#2367;न&#2381;न  म&#2375; बदल&#2368;य&#2375; ?",
+           options:["(A) 0.185","(B) 0.175","(C) 0.165","(D) 0.195"],
+           answer:0,
+           
+       },
+                {
+           question:"Q. Which one is non-metal? | इनम&#2375; स&#2375; अध&#2366;त&#2369; क&#2380;न स&#2368; ह&#2376;?",
+           options:["(A) Mercury | प&#2366;र&#2366;","(B) Graphite | ग&#2381;र&#2375;फ&#2366;इट ","(C) Brass | प&#2368;तल","(D) Iron | ल&#2379;ह&#2366;"],
+           answer:1,
+       },
+       {
+           question:"Q. Which metal contains iron as a major content? | इनम&#2375; स&#2375; क&#2367;स ध&#2366;त&#2369; म&#2375;&#2306; प&#2381;रम&#2369;ख स&#2366;मग&#2381;र&#2368; क&#2375; र&#2370;प म&#2375;&#2306; ल&#2379;ह&#2366; ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) Brass metal | प&#2368;तल ध&#2366;त&#2369;","B) Bronze metal | क&#2366;स&#2366; ध&#2366;त&#2369; ","(C) Zinc | ज&#2367;&#2306;क ","(D) Ferrous metal | ल&#2379;ह ध&#2366;त&#2369;"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is the name of the metal which do not contain iron? | उस ध&#2366;त&#2369; क&#2366; न&#2366;म क&#2381;य&#2366; ह&#2376; ज&#2367;सम&#2375;&#2306; ल&#2379;ह&#2366; नह&#2368;&#2306; ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) Ferrous metals | ल&#2379;ह ध&#2366;त&#2369;","(B) Non-ferrous metals | अल&#2379;ह ध&#2366;त&#2369;","(C) Insulating metals | क&#2369;च&#2366;लक ध&#2366;त&#2369;","(D) Non-Insulating metals | स&#2369;च&#2366;लक ध&#2366;त&#2369; "],
+           answer:1,
+           
+       },
+       {
+           question:"Q. Which one of the following properties is the mechanical properties of metal? | न&#2367;म&#2381;नल&#2367;ख&#2367;त म&#2375;&#2306; स&#2375; क&#2380;न -स&#2366; ग&#2369;णधर&#2381;म ध&#2366;त&#2369; क&#2366; य&#2366;&#2306;त&#2381;र&#2367;क ग&#2369;ण ह&#2376;?",
+           options:["(A) Fusibility | गलन&#2368;यत&#2366;","(B) Ductility | तन&#2381;यत&#2366;","(C) Corrosion | स&#2306;क&#2381;ष&#2366;रण","(D) Structure | स&#2306;रचन&#2366;"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. Which is brittle metal? | इनम&#2375; स&#2375; भ&#2306;ग&#2369;र ध&#2366;त&#2369; क&#2380;न स&#2368; ह&#2376;?",
+           options:["(A) Cast iron | कच&#2381;च&#2366; ल&#2379;ह&#2366;","(B) Steel | इस&#2381;प&#2366;त","(C) Mild steel | नरम इस&#2381;प&#2366;त","(D) Alloy steel |  म&#2367;श&#2381;र ध&#2366;त&#2369; इस&#2381;प&#2366;त "],
+           answer:0,
+           
+       },
+       {
+           question:"Q. Which mechanical property of a metal offers resistance to elastic deformation in a cutting tool? | ध&#2366;त&#2369; क&#2368; क&#2380;न स&#2366; य&#2366;&#2306;ब&#2381;रत&#2381;रक ग&#2369;ण एक क&#2366;&#2367;न&#2375; क&#2375; उपकरण म&#2375;&#2306; ल&#2379;चद&#2366;र वर&#2370;पण क&#2375;	लए प&#2381;रततर&#2379;ध प&#2381;रद&#2366;न करत&#2368; ह&#2376;?",
+           options:["(A) Ductility | तन&#2381;यत&#2366;","(B) Malleability | आघ&#2366;तवधन&#2368;यत&#2366;","(C) Hardness | कठ&#2379;रत&#2366;","(D) Toughness | च&#2368;मड़पन"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. Which property of material enables to formation of permanent deformation without fracture? | ध&#2366;त&#2369; क&#2366; क&#2380;न स&#2366; ग&#2369;ण फ&#2366;र&#2381;म&#2375;शन क&#2375; स&#2381;थ&#2366;ई व&#2367;र&#2370;पण क&#2375; गठन म&#2375;&#2306; सक&#2381;षम ह&#2379;त&#2368; ह&#2376;?",
+           options:["(A) Elasticity | प&#2381;रत&#2381;य&#2366;&#2381;तथ&#2366;","(B) Plasticity | स&#2369;घट&#2381;यत&#2366;","(C) Ductility | तन&#2381;यत&#2366;","(D) Brittleness | भ&#2306;गरत&#2366;"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. Which alloy used in electric lamp as filament? | ब&#2367;जल&#2368; क&#2375; ल&#2376;म&#2381;प म&#2375;&#2306; क&#2367;स म&#2367;श&#2381;र ध&#2366;त&#2369; फ&#2367;ल&#2366;म&#2375;&#2306;ट क&#2366; उपय&#2379;ग क&#2367;य&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Cobalt | क&#2379;ब&#2366;ल&#2381;ट ","(B) Vanadium | व&#2376;न&#2375;ड&#2367;यम ","(C) Tungsten | ट&#2306;गस&#2381;टन ","(D) Silicon | स&#2367;ल&#2367;क&#2377;न "],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What metals contained in brass alloy? | प&#2368;तल म&#2375;&#2306; क&#2380;न-क&#2379;नस&#2368;  म&#2367;श&#2381;र ध&#2366;त&#2369;ए ह&#2379;त&#2368; ह&#2376;&#2306;?",
+           options:["(A) Copper and aluminum | त&#2366;&#2306;ब&#2366; और एल&#2369;म&#2367;न&#2367;यम ","(B) Copper and lead | त&#2366;&#2306;ब&#2366; और स&#2368;स&#2366;","(C) Copper and zinc | त&#2366;&#2306;ब&#2366; और ज&#2367;&#2306;क ","(D) Copper and tin | त&#2366;&#2306;ब&#2366; और ट&#2367;न "],
+           answer:2,
+           
+       },
+       {
+           question:"Q. Which cast iron cannot be welded? | इनम&#2375; स&#2375; क&#2379;नस&#2375; ढलव&#2366;&#2306; ल&#2379;ह&#2375; क&#2368; व&#2375;ल&#2381;ड&#2367;&#2306;ग नह&#2368;&#2306; क&#2368; ज&#2366; सकत&#2368; ह&#2376;?",
+           options:["(A) Grey cast iron | ध&#2370;सर ढलव&#2366;&#2306; ल&#2379;ह&#2366;","(B) White cast iron | सफ&#2375;द ढलव&#2366;&#2306; ल&#2379;ह&#2366;","(C) Malleable cast iron | प&#2367;टव&#2366; ढलव&#2366;&#2306; ल&#2379;ह&#2366;","(D) Nodular cast iron | ग&#2366;&#2306;ठद&#2366;र ढलव&#2366;&#2306; ल&#2379;ह&#2366;"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. Which metal cannot be forged? | इनम&#2375; स&#2375;  क&#2367;स ध&#2366;त&#2369; क&#2379; फ&#2379;र&#2381;ज नह&#2368;&#2306; क&#2367;य&#2366; ज&#2366; सकत&#2366; ह&#2376; ?",
+           options:["(A) Alloy steel |  म&#2367;श&#2381;र इस&#2381;प&#2366;त ","(B) Mild steel | हल&#2381;क&#2375; इस&#2381;प&#2366;त ","(C) Steel | इस&#2381;प&#2366;त","(D) Cast iron | ढलव&#2366;&#2306; ल&#2379;ह&#2366;"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. Which metal is widely used for making casting of machinery parts? | मश&#2368;नर&#2368; भ&#2366;ग&#2379;&#2306; क&#2368; ढल&#2366;ई बन&#2366;न&#2375; क&#2375; ल&#2367;ए  क&#2367;स ध&#2366;त&#2369; क&#2366; व&#2381;य&#2366;पक र&#2370;प स&#2375; उपय&#2379;ग  क&#2367;य&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Grey cast iron | ध&#2370;सर ढलव&#2366;&#2306; ल&#2379;ह&#2366;","(B) White cast iron | सफ&#2375;द ढलव&#2366;&#2306; ल&#2379;ह&#2366;","(C) Malleable cast iron | प&#2367;टव&#2366; ढलव&#2366;&#2306; ल&#2379;ह&#2366;","(D) Wrought iron | ल&#2379;ह&#2366;"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. Which furnace is used to get pig iron from iron ore? | ल&#2380;ह अयस&#2381;क स&#2375; प&#2367;ग  आयरन बन&#2366;न&#2375; क&#2375;	ल&#2367;ए क&#2367;स भट&#2381;ट&#2368; क&#2366; उपय&#2379;ग क&#2367;य&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Rever battery | र&#2375;व&#2375;र ब&#2376;टर&#2368; ","(B) Electric furnace | इल&#2375;क&#2381;ट&#2381;र&#2367;क भट&#2381;ठ&#2368;","(C) Blast furnace | ब&#2381;ल&#2366;स&#2381;ट भट&#2381;ठ&#2368;","(D) Cupola | कप&#2379;ल&#2366;"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the ore of aluminum? | एल&#2369;म&#2367;न&#2367;यम क&#2366; अयस&#2381;क क&#2379;नस&#2366; ह&#2376;?",
+           options:["(A) Hematite | ह&#2375;म&#2375;ट&#2366;इड ","(B)  Bauxite |ब&#2377;क&#2381;स&#2366;इट ","(C) Malanite | म&#2375;ल&#2375;न&#2366;इट ","(D) Ferrite | फ&#2375;र&#2366;इट "],
+           answer:1,
+           
+       },
+       {
+           question:"Q. 60	: Which insulating material is used for making switches? | स&#2381;व&#2367;च बन&#2366;न&#2375; क&#2375; ल&#2367;ए क&#2367;स क&#2369;च&#2366;लक स&#2366;मग&#2381;र&#2368; क&#2366; उपय&#2379;ग  क&#2367;य&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Porcelain | प&#2379;रसल&#2368;न ","(B) PVC | प&#2368;व&#2368;स&#2368;","(C) Bakelite | ब&#2376;कल&#2366;इट ","(D) Ebonite | इब&#2379;न&#2366;इट "],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the name of the property of an insulation that should brake down or puncture on application of high voltage? | प&#2381;रत&#2367;र&#2379;धक क&#2366; वह ग&#2369;ण क&#2381;य&#2366; ह&#2376; ज&#2379; उच&#2381;च व&#2379;ल&#2381;ट&#2375;ज क&#2375; आन&#2375; पर ट&#2370;टन&#2366; च&#2366;ह&#2367;ए य&#2366; प&#2306;चर ह&#2379;न&#2366; च&#2366;ह&#2367;ए?",
+           options:["(A) Di-electric strength | पर&#2366;व&#2376;द&#2381;य&#2369;त स&#2366;मर&#2381;थ&#2381;य ","(B) Specific resistance | व&#2367;श&#2367;ष&#2381;ट प&#2381;रत&#2367;र&#2379;ध ","(C) Mechanical strength | य&#2366;&#2306;त&#2381;र&#2367;क स&#2366;मर&#2381;थ&#2381;य","(D) Non absorption | ग&#2376;र अवश&#2379;षण "],
+           answer:0,
+           
+       },
+       {
+           question:"Q. Which alloy steel is using for making precious instrument? | क&#2367;स इस&#2381;प&#2366;त क&#2366; उपय&#2379;ग क&#2368;मत&#2368; उपकरण बन&#2366;न&#2375; क&#2375; ल&#2367;ए क&#2367;य&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Silicon steel | स&#2367;ल&#2367;क&#2377;न इस&#2381;प&#2366;त ","(B) Manganese steel | म&#2376;गन&#2368;श इस&#2381;प&#2366;त ","(C) Invar steel | इन&#2381;व&#2366;र इस&#2381;प&#2366;त","(D) Vanadium | व&#2375;न&#2375;ड&#2367;यम "],
+           answer:2,
+           
+       },
+       {
+           question:"Q. Which steel is used for making files and cold chisel? | र&#2375;त&#2368; और क&#2379;ल&#2381;ड छ&#2375;न&#2368; बन&#2366;न&#2375; क&#2375; ल&#2367;ए क&#2367;स इस&#2381;प&#2366;त क&#2366; उपय&#2379;ग क&#2367;य&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Low carbon steel | न&#2367;म&#2381;न क&#2366;र&#2381;बन स&#2381;ट&#2368;ल ","(B) Medium carbon steel | मध&#2381;यम क&#2366;र&#2381;बन स&#2381;ट&#2368;ल ","(C) High carbon steel | उच&#2381;च क&#2366;र&#2381;बन स&#2381;ट&#2368;ल ","(D) Stainless steel | स&#2381;ट&#2375;नल&#2375;स स&#2381;ट&#2368;ल"],
+           answer:2,
+           
+       },
+           
+         {
+           question:"Q. What is termed as the quantity of matter contained in a body? | क&#2367;स&#2368; प&#2367;&#2306;ड म&#2375;&#2306; न&#2367;ह&#2367;त पद&#2366;र&#2381;थ क&#2368; म&#2366;त&#2381;र&#2366; क&#2379; क&#2381;य&#2366; कह&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Density | घनत&#2381;व ","(B) Volume | आयतन ","(C) Mass | द&#2381;रव&#2381;यम&#2366;न","(D) Specific gravity |  व&#2367;श&#2367;ष&#2381;ट ग&#2369;रत&#2381;व "],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the force with which a body is attracted by the earth towards its centre? | वह क&#2380;न स&#2366; बल ह&#2376; ज&#2367;सक&#2375; क&#2366;रण क&#2379;ई भ&#2368; व&#2366;स&#2381;त&#2369; पद&#2366;र&#2381;थ  क&#2375; क&#2375;&#2306;द&#2381;र क&#2368; ओर आकर&#2381;ष&#2367;त ह&#2379;त&#2368; ह&#2376;?",
+           options:["(A) Mass | द&#2381;रव&#2381;यम&#2366;न","(B) Weight | भ&#2366;र ","(C) Volume | आयतन","(D) Density | घनत&#2381;व"],
+           answer:1,
+           
+       },
+      {
+           question:"Q. What is called mass per unit volume of a substances? | क&#2367;स&#2368; पद&#2366;र&#2381;थ क&#2375; द&#2381;रव&#2381;यम&#2366;न प&#2381;रत&#2367; इक&#2366;ई आयतन क&#2379; क&#2381;य&#2366; कहत&#2375; ह&#2376;&#2306;? ",
+           options:["(A) Mass | द&#2381;रव&#2381;यम&#2366;न","(B) Weight | भ&#2366;र","(C) Density | घनत&#2381;व","(D) Volume | आयतन"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is called the ratio between the density of a substances density of water at 4&#176;C? | पद&#2366;थ&#2379;&#2306; क&#2375; घनत&#2381;व तथ&#2366; 4 &#176;C पर प&#2366;न&#2368; क&#2375; घनत&#2381;व क&#2366; अन&#2369;प&#2366;त क&#2381;य&#2366; कहल&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Density | घनत&#2381;व","(B) Specific gravity |  व&#2367;श&#2367;ष&#2381;ट ग&#2369;रत&#2381;व","(C) Mass | द&#2381;रव&#2381;यम&#2366;न","(D) Weight | भ&#2366;र"],
+           answer:2,
+        },   
+       {
+           question:"Q. What is the density of aluminum? | एल&#2369;म&#2367;न&#2367;यम क&#2366; घनत&#2381;व  क&#2367;तन&#2366; ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) 2.7 g/cm3","(B) 3.7 g/cm3","(C) 4.7 g/cm3","(D) 5.7 g/cm3"],
+           answer:0,
+       },
+       {
+           question:"Q. What is the mass if the density of a body is 7.6 g/cm3 and its volume is 25 cm3? | यद&#2367; क&#2367;स&#2368; प&#2367;&#2306;ड क&#2366; घनत&#2381;व 7.6 ग&#2381;र&#2366;म / स&#2375;म&#2368;^3 ह&#2376; और इसक&#2366; आयतन 25 स&#2375;म&#2368;^3 ह&#2376; त&#2379; इसक&#2366; द&#2381;रव&#2381;यम&#2366;न क&#2367;तन&#2366; ह&#2379;ग&#2366;?",
+           options:["(A) 190 grams ","B) 200 grams ","(C) 210 grams","(D) 220 grams "],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What is the specific gravity of the solid, if density of the solid is 19.5 g/cm3? | यद&#2367; ठ&#2379;स क&#2366; घनत&#2381;व 19.5 ग&#2381;र&#2366;म / स&#2375;म&#2368;^3 ह&#2376; त&#2379; ठ&#2379;स क&#2366; व&#2367;श&#2367;ष&#2381;ट ग&#2369;र&#2369;त&#2381;व क&#2367;तन&#2366; ह&#2379;ग&#2366;?",
+           options:["(A) 18.0","(B) 18.5","(C) 19.0","(D) 19.5"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is the density (r) in g/cm3 of an iron cube, if it weighs (W) 4.8 kg and volume (V) is 640 cm3? | एक ल&#2379;ह&#2375; क&#2375; घन क&#2366; घनत&#2381;व(r) g / cm3 म&#2375; कतन&#2366; ह&#2379;ग&#2366;,यटद इसक&#2366; भ&#2366;र(W) 4.8 कल&#2379;ग&#2381;र&#2366;म और आयतन(V) 640 cm3 ह&#2376;?",
+           options:["(A) 6.6 g/cm3 ","(B) 6.9 g/cm3  ","(C) 7.2 g/cm3  ","(D) 7.5 g/cm3"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is the volume (V) of mercury in cm3, if mass (m) of mercury is 1 kg and density (r) is 13.6 g/cm3? | यद&#2367; प&#2366;र&#2366; क&#2366; द&#2381;रव&#2381;यम&#2366;न (m) 1 क&#2367;ग&#2381;र&#2366; ह&#2376; और घनत&#2381;व (r) 13.6 g / cm3 ह&#2376; त&#2379; प&#2366;र&#2375; क&#2366; आयतन (V) स&#2375;म&#2368; ^3 म&#2375; क&#2367;तन&#2366; ह&#2379;ग&#2366;?",
+           options:["(A) 73.53 cm3 ","(B) 73.43 cm3 ","(C) 73.33 cm3 ","(D) 73.23 cm3"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What is the mass in gram, if a force of 15 dyres acting on a mass m producing an acceleration of 2.5 cm/sec2? | यद&#2367; क&#2367;स&#2368;  व&#2366;स&#2381;त&#2369; पर 15 स&#2375;म&#2368; क&#2366; बल लग&#2366;न&#2375; स&#2375; व&#2366;स&#2381;त&#2369; 2.5 स&#2375;म&#2368; / स&#2375;क&#2375;ण&#2381;ड^2 क&#2375; त&#2381;वरण स&#2375; गत&#2367; करत&#2368; ह&#2376; त&#2379; वस&#2381;त&#2369; क&#2366; द&#2381;रव&#2381;यम&#2366;न क&#2381;य&#2366; ह&#2379;ग&#2366;?",
+           options:["(A) 9 grams","(B) 8 grams","(C) 7 grams","(D) 6 grams"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is the specific gravity of the metal, if the piece of metal weighs 150 grams in air and 125 grams in water? | ध&#2366;त&#2369; क&#2366; ग&#2369;र&#2369;त&#2381;व क&#2375;&#2306;द&#2381;र क&#2381;य&#2366; ह&#2379;ग&#2366;, यद&#2367; ध&#2366;त&#2369; क&#2366; भ&#2366;र हव&#2366; म&#2375;&#2306; 150 ग&#2381;र&#2366;म और प&#2366;न&#2368; म&#2375;&#2306; 125 ग&#2381;र&#2366;म ह&#2376;?",
+           options:["(A) 6","(B) 10","(C) 15","(D) 25"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What is the volume of mercury in cm3, if the mass (m) of mercury is 136 grams (g) and density (r) of mercury is 13.6 g/cm3? | यद&#2367; प&#2366;र&#2366; क&#2366; द&#2381;रव&#2381;यम&#2366;न (m) 136 ग&#2381;र&#2366;म ह&#2376; और प&#2366;र&#2366; क&#2366; घनत&#2381;व (r) 13.6 g / cm3 ह&#2376; त&#2379; प&#2366;र&#2375; क&#2366; आयतन स&#2375;म&#2368;^3 म&#2375; क&#2381;य&#2366; ह&#2379;ग&#2366;?",
+           options:["(A) 136 cm3 ","(B) 13.6 cm3 ","(C) 10.6 cm3 ","(D) 10.0 cm3"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is the block weighs (W) in kg, if volume (V) is 320 cm3 and density 8.9 g/cm3? | द&#2367;य गए ब&#2381;ल&#2377;क क&#2366; भ&#2366;र कल&#2379;ग&#2381;र&#2366;म म&#2375; क&#2381;य&#2366; ह&#2379;ग&#2366; ,यद&#2367; इसक&#2366; आयतन (V) 320 स&#2375;म&#2368;3 और घनत&#2381;व 8.9 ग&#2381;र&#2366;म / स&#2375;म&#2368;3 ह&#2376;?",
+           options:["(A) 2.948 kg ","(B) 2.848 kg  ","(C) 2.648 kg  ","(D) 2.448 kg"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is the specific gravity of the metal, if the weighs 6.5 kgf in air and 3.5 kgf in water? | यद&#2367; ध&#2366;त&#2369; क&#2366; भ&#2366;र 6.5 कल&#2379;ग&#2381;र&#2366;म हव&#2366; म&#2375;&#2306; तथ&#2366; 3.5 कल&#2379;ग&#2381;र&#2366;म प&#2366;न&#2368; म&#2375; ह&#2376; त&#2379; ध&#2366;त&#2369; क&#2366;  व&#2367;श&#2367;ष&#2381;ट ग&#2369;र&#2369;त&#2381;व क&#2381;य&#2366; ह&#2379;ग&#2366;?",
+           options:["(A) 6.166","(B) 3.166","(C) 2.166","(D) 1.166"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the weight force of a car has a mass of 800 kg? (Take g = 9.81m/sec) | एक क&#2366;र क&#2366; भ&#2366;र बल 800 क&#2367;ग&#2381;र&#2366; क&#2366; द&#2381;रव&#2381;यम&#2366;न ह&#2379;त&#2366; ह&#2376;? ( g= 9.81 म&#2368;&#2404; / स&#2375;क&#2375;ण&#2381;ड )",
+           options:["(A) 7848 Newton","(B) 7748 Newton","(C) 7847 Newton","(D) 7487 Newton"],
+           answer:0,
+           
+       },
+         {
+           question:"Q. What is the formula for speed? | गत&#2367; क&#2366; स&#2370;त&#2381;र क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) Distance covered/Time | तय क&#2368; गई द&#2370;र&#2368;/समय ","(B) Distance in definite direction /Time | न&#2367;श&#2381;च&#2367;त द&#2367;श&#2366; म&#2375;&#2306; तय क&#2368; गई द&#2370;र&#2368;/समय","(C) Change in velocity/Time | व&#2375;ग म&#2375;&#2306; पर&#2367;वर&#2381;तन/समय","(D) Change in momentum/Time | स&#2306;व&#2375;ग म&#2375;&#2306; पर&#2367;वर&#2381;तन/समय"],
+           answer:0,
+       },
+       {
+           question:"Q. What is the unit of speed? | गत&#2367; क&#2368; इक&#2366;ई क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) Meter/second | म&#2368;टर / स&#2375;क&#2306;ड","B) Meter/second^2 | म&#2368;टर / स&#2375;क&#2306;ड^2 ","(C) Meter/minute | म&#2368;टर / म&#2367;नट","(D) Meter/hour | म&#2368;टर / घ&#2306;ट&#2366;"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What is the formula for velocity? | व&#2375;ग क&#2366; स&#2370;त&#2381;र क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) Distance covered/Time | द&#2370;र&#2368; तय / समय","(B) Displacement/Time | व&#2367;स&#2381;थ&#2366;पन / समय","(C) Change in velocity/Time | व&#2375;ग / समय म&#2375;&#2306; पर&#2367;वर&#2381;तन","(D) Change of momentum/Time | स&#2306;व&#2375;ग / समय क&#2366; पर&#2367;वर&#2381;तन"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is called if a body posses only magnitude or size alone?  | यद&#2367; क&#2379;ई र&#2366;श&#2367; क&#2375;वल पर&#2367;म&#2366;ण य&#2366; आक&#2366;र क&#2379; अक&#2375;ल&#2375; रख&#2375; त&#2379; क&#2381;य&#2366; कहल&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Speed | गत&#2367; ","(B) Velocity | व&#2375;ग","(C) Vector quantity | सद&#2367;श र&#2366;श&#2367; ","(D) Scalar quantity | अद&#2367;श र&#2366;श&#2367;"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is called if a body posses both magnitude and direction of velocity? | यद&#2367; क&#2367;स&#2368; वस&#2381;त&#2369; म&#2375;&#2306; पर&#2367;म&#2366;ण और व&#2375;ग द&#2379;न&#2379;&#2306; ह&#2379;&#2306;, त&#2379; उस&#2375; क&#2381;य&#2366; कह&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) (A) Speed | गत&#2367;","(B) Velocity | व&#2375;ग","(C) Vector quantity | सद&#2367;श र&#2366;श&#2367;","(D) Scalar quantity | अद&#2367;श र&#2366;श&#2367;"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the rate of change of displacement of a body? | क&#2367;स&#2368; वस&#2381;त&#2369; म&#2375;&#2306; व&#2367;स&#2381;थ&#2366;पन क&#2375; पर&#2367;वर&#2381;तन क&#2368; दर क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) Body at rest | वस&#2381;त&#2369; क&#2366; व&#2367;र&#2366;म म&#2375;&#2306; ह&#2379;न&#2366;","(B) Body at motion | वस&#2381;त&#2369; क&#2366; गत&#2367; म&#2375;&#2306; ह&#2379;न&#2366;","(C) Speed | गत&#2367; ","(D) Velocity | व&#2375;ग"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is called if a body does not change its position with respect to its surroundings? | यद&#2367; क&#2379;ई वस&#2381;त&#2369; अपन&#2375; पररव&#2375;श क&#2375; स&#2306;ब&#2306;ध म&#2375;&#2306; अपन&#2368; स&#2381;थ&#2367;त&#2367; क&#2379; नह&#2368;&#2306; बदलत&#2366; ह&#2376;, त&#2379; उस&#2375; क&#2381;य&#2366; कह&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Body at rest | वस&#2381;त&#2369; क&#2366; व&#2367;र&#2366;म म&#2375;&#2306; ह&#2379;न&#2366;","(B) Body at motion | वस&#2381;त&#2369; क&#2366; गत&#2367; म&#2375;&#2306; ह&#2379;न&#2366;","(C) Speed | गत&#2367;","(D) Velocity | व&#2375;ग"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is called if a body changes its position with respect to its surroundings? | यद&#2367; क&#2379;ई वस&#2381;त&#2369; अपन&#2375; पररव&#2375;श क&#2375; स&#2306;ब&#2306;ध म&#2375;&#2306; अपन&#2368; स&#2381;थ&#2367;त&#2367; क&#2379; बदलत&#2366; ह&#2376;, त&#2379; उस&#2375; क&#2381;य&#2366; कह&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Body at rest | वस&#2381;त&#2369; क&#2366; व&#2367;र&#2366;म म&#2375;&#2306; ह&#2379;न&#2366;","(B) Body at motion | वस&#2381;त&#2369; क&#2366; गत&#2367; म&#2375;&#2306; ह&#2379;न&#2366;","(C) Speed | गत&#2367;","(D) Velocity | व&#2375;ग"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is the unit of acceleration of an object? | कस&#2368; वस&#2381;त&#2369; क&#2375; त&#2381;वरण क&#2368; इक&#2366;ई क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) Meter/second | म&#2368;टर / स&#2375;क&#2306;ड","(B) Meter/second^2 | म&#2368;टर / स&#2375;क&#2306;ड ^ 2","(C) Metre/minutes | म&#2368;टर / म&#2367;नट","(D) Metre/minutes^2 | म&#2368;टर / म&#2367;नट ^ 2"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is the acceleration of a car if the speed of the car has increased from 25 km per hour to 40 km per hour in one minute? | एक क&#2366;र क&#2366; त&#2381;वरण क&#2381;य&#2366; ह&#2379;त&#2366; ह&#2376;, यद&#2367; क&#2366;र क&#2368; गत&#2367; एक म&#2367;नट म&#2375;&#2306; 25 क&#2367;म&#2368; प&#2381;रत&#2367; घ&#2306;ट&#2366; स&#2375; बढ&#2364;कर 40 क&#2367;म&#2368; प&#2381;रत&#2367; घ&#2306;ट&#2366; ह&#2379; ज&#2366;त&#2368; ह&#2376;?",
+           options:["(A) 0.059 m/sec^2  ","(B) 0.59 m/sec^2","(C) 0.069 m/sec^2","(D) 0.69 m/sec^2"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the retardation of a car moving with a velocity of 50 km/hr is brought to rest in 45 seconds? | 50 क&#2367;म&#2368;/घ&#2306;ट&#2366; क&#2375; व&#2375;ग स&#2375; चलन&#2375; व&#2366;ल&#2368; क&#2366;र क&#2379; 45 स&#2375;क&#2375;ण&#2381;ड म&#2375;&#2306; व&#2367;र&#2366;म म&#2375;&#2306; ल&#2366;य&#2366; ज&#2366;त&#2366; ह&#2376;, त&#2379; उसक&#2366; म&#2306;दन क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) 0.40 m/sec^2","(B) 0.30 m/sec^2","(C) 0.20 m/sec^2","(D) 0.10 m/sec^2"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is the work done in unit time? |  एक इक&#2366;ई समय म&#2375;&#2306; क&#2367;य&#2366; गय&#2366; क&#2366;र&#2381;य क&#2381;य&#2366; ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) Energy | ऊर&#2381;ज&#2366; ","(B) Power | शक&#2381;त&#2367; ","(C) Force | बल","(D) Acceleration | त&#2381;वरण"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is the capacity of a body to do work is called? | क&#2367;स&#2368; वस&#2381;त&#2369; क&#2368; क&#2366;र&#2381;य करन&#2375; क&#2368; क&#2381;षमत&#2366; क&#2379; क&#2381;य&#2366; कहत&#2375; ह&#2376;&#2306;?",
+           options:["(A) Energy | ऊर&#2381;ज&#2366;","(B) Power | शक&#2381;त&#2367;","(C) Acceleration | त&#2381;वरण","(D) Force | बल"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What is the ratio of power output to power input? | शक&#2381;त&#2367; आउटप&#2369;ट  और शक&#2381;त&#2367; इनप&#2369;ट क&#2366; अन&#2369;प&#2366;त क&#2381;य&#2366; ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) Work | क&#2366;र&#2381;य ","(B) Energy | ऊर&#2381;ज&#2366;","(C) Efficiency | दक&#2381;षत&#2366;","(D) Acceleration | त&#2381;वरण"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is called if a force of 1Newton acts on a body and moves it through a distance of 1 metre? | यद&#2367; एक न&#2381;य&#2370;टन क&#2366; बल क&#2367;स&#2368; वस&#2381;त&#2369; पर क&#2366;र&#2381;य करत&#2366; ह&#2376; और उस&#2375; एकम&#2368;टर क&#2368; द&#2370;र&#2368; तक चल&#2366;त&#2368; ( ख&#2367;सक&#2366;त&#2368;) ह&#2376;, त&#2379; उस&#2375; क&#2381;य&#2366; कहत&#2375; ह&#2376;&#2306;?",
+           options:["(A) 1 Joule ","(B) 10 Joules ","(C) 1 dyne ","(D) 10 dynes "],
+           answer:0,
+           
+       },
+       {
+           question:"Q. How many ergs for 1 Joule? | एक ज&#2370;ल म&#2375;&#2306; क&#2367;तन&#2375; इर&#2381;ग ह&#2379;त&#2375; ह&#2376;?",
+           options:["(A) 103 ergs ","(B) 105 ergs ","(C) 107 ergs ","(D) 109 ergs "],
+           answer:2,
+           
+       },
+       {
+           question:"Q. How many newtons for 1 kilogram? | 1 क&#2367;ग&#2381;र&#2366; म&#2375;&#2306; क&#2367;तन&#2375; न&#2381;य&#2370;टन ह&#2379;त&#2375; ह&#2376;&#2306;?",
+           options:["(A) 981 Newtons","(B) 98.1 Newtons","(C) 9.81 Newtons","(D) 0.981 Newtons"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. How many watts for 1 horse power in metric system? | म&#2375;ट&#2381;र&#2367;क प&#2381;रण&#2366;ल&#2368; म&#2375;&#2306; 1 ह&#2377;र&#2381;स प&#2366;वर म&#2375;&#2306; क&#2367;तन&#2375; व&#2366;ट&#2381;स ह&#2379;त&#2375; ह&#2376;&#2306;?",
+           options:["(A) 725.5 watts","(B) 735.5 watts","(C) 745.5 watts","(D) 755.5 watts"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. How many watts for 1 horse power in British system? | ब&#2381;र&#2367;ट&#2367;श  प&#2381;रण&#2366;ल&#2368; म&#2375;&#2306;, 1 ह&#2377;र&#2381;स प&#2366;वर म&#2375;&#2306; क&#2367;तन&#2375; व&#2366;ट&#2381;स ह&#2379;त&#2375; ह&#2376;&#2306;?",
+           options:["(A) 726 watts","(B) 736 watts","(C) 746 watts","(D) 756 watts"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. How much work done in one hour, if a pump can raise 100 liters of water through a height of 200 meters in one minutes? | एक घ&#2306;ट&#2375; म&#2375;&#2306; क&#2367;तन&#2366; क&#2366;र&#2381;य ह&#2379;त&#2366; ह&#2376;, यद&#2367; एक प&#2306;प एक म&#2367;नट म&#2375;&#2306; 200 म&#2368;टर ऊ&#2306;च&#2366;ई तक 100 ल&#2368;टर प&#2366;न&#2368; उठ&#2366; सकत&#2366; ह&#2376;?",
+           options:["(A) 12 x 104 kg meter","(B) 12 x 105 kg meter","(C) 12 x 106 kg meter","(D) 12 x 107 kg meter"],
+           answer:1,
+           
+       },
+      {
+           question:"Q. What is the work done in joules if a load of 15.5 kg is lifted through a height of 4.4 metres? | यद&#2367; क&#2367;स&#2368; 15.5 क&#2367;ग&#2381;र&#2366; क&#2375; भ&#2366;र क&#2379; 4.4 म&#2368;टर ऊ&#2306;च&#2366;ई तक उठ&#2366;य&#2366; ज&#2366;त&#2366; ह&#2376;, त&#2379; ज&#2370;ल म&#2375;&#2306; क&#2367;तन&#2366; क&#2366;र&#2381;य ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) 639 Joules","(B) 649 Joules","(C) 659 Joules","(D) 669 Joules"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is the kinetic energy of a bullet of mass 5gm travels with a speed of 500 m/sec? | एक 5 ग&#2381;र&#2366;म द&#2381;रव&#2381;यम&#2366;न क&#2368; ब&#2369;ल&#2375;ट 500 म&#2368;टर/स&#2375;क&#2375;&#2306;ड क&#2368; गत&#2367; स&#2375; चलत&#2368; ह&#2376;,त&#2379; गत&#2367;ज ऊर&#2381;ज&#2366; क&#2381;य&#2366; ह&#2379;ग&#2368;? ",
+           options:["(A) 620 Joules","(B)  625 Joules","(C)  630 Joules","(D)  635 Joules"],
+           answer:1,
+           
+       },
+          
+         {
+           question:"Q. Which refers the temperature? | त&#2366;पम&#2366;न क&#2379; क&#2381;य&#2366; स&#2306;दर&#2381;भ&#2367;त करत&#2366; ह&#2376;?",
+           options:["(A) It is a form of energy | यह ऊर&#2381;ज&#2366; क&#2366; एक र&#2370;प ह&#2376;","(B) It tells the state of heat | यह ऊष&#2381;म&#2366; क&#2368; अवस&#2381;थ&#2366; बत&#2366;त&#2368; ह&#2376;","(C) It tells specifie heat of substance | यह क&#2367;स&#2368; पद&#2366;र&#2381;थ क&#2368; ऊष&#2381;म&#2366; क&#2379; तनटदषष&#2381;&#2367; करत&#2366; ह&#2376; ","(D) ddddd"],
+           answer:1,
+       },
+       {
+           question:"Q. What is the S.I unit of heat? | ऊष&#2381;म&#2366; क&#2368; एस.आई. इक&#2366;ई क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) Calorie | क&#2376;ल&#2379;र&#2368;","B) Joule | ज&#2370;ल ","(C) Centigrade heat unit | स&#2375;&#2306;ट&#2368;ग&#2381;र&#2375;ट ह&#2368;ट य&#2370;न&#2367;ट ","(D) British thermal unit | ब&#2381;र&#2367;ट&#2367;श थर&#2381;मल इक&#2366;ई"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. Which instrument is used to measure heat? | ऊष&#2381;म&#2366; क&#2379; म&#2366;पन&#2375; क&#2375;	ल&#2367;ए क&#2367;स उपकरण क&#2366; उपय&#2379;ग क&#2367;य&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Calorie meter | क&#2376;ल&#2379;र&#2368; म&#2368;टर ","(B) Thermometer | थर&#2381;म&#2379;म&#2368;टर ","(C) Pyrometer  |  प&#2366;इर&#2379;म&#2368;टर ","(D) Barometer | ब&#2376;र&#2379;म&#2368;टर "],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What is the quantity of heat required to raise the temperature of 1 gram of water through 1&#176;C is called? | 1 ग&#2381;र&#2366;म प&#2366;न&#2368; क&#2366; 1&#176;C त&#2366;पम&#2366;न बढ&#2364;&#2366;न&#2375; क&#2375; ल&#2367;ए आवश&#2381;यक ऊष&#2381;म&#2366; क&#2368; म&#2366;त&#2381;र&#2366; क&#2379; क&#2381;य&#2366; कहत&#2375; ह&#2376;&#2306;?",
+           options:["(A) Specific heat |  व&#2367;श&#2367;ष&#2381;ट ऊष&#2381;म&#2366;","(B) Calorie | क&#2376; ल&#2379;र&#2368;","(C) British thermal unit | ब&#2381;र&#2367;ट&#2367;श थर&#2381;मल य&#2370;न&#2367;ट ","(D) Centigrade heat unit | स&#2375;&#2306;ट&#2381;र&#2367;ग&#2381;र&#2375;ट ह&#2368;ट य&#2370;न&#2367;ट "],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is the value for specific heat of water? | प&#2366;न&#2368; क&#2368; व&#2367;श&#2367;ष&#2381;ट ऊष&#2381;म&#2366; क&#2366; म&#2366;न क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) 4","(B) 3","(C) 2","(D) 1"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. Which type heat is the heat absorbed or given off by a substance without changing its physical state? | क&#2367;स प&#2381;रक&#2366;र क&#2368; ऊष&#2381;म&#2366; क&#2379; उसक&#2368; भ&#2380;त&#2367;क  अवस&#2381;थ&#2366; म&#2375;&#2306; बदल&#2375; ब&#2367;न&#2366; क&#2367;स&#2368; पद&#2366;र&#2381;थ द&#2381;व&#2366;र&#2366; अवश&#2379;ष&#2367;त क&#2367;य&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Latent heat | ग&#2369;प&#2381;त ऊष&#2381;म&#2366;","(B) Sensible heat | स&#2375;&#2306;सबल ऊष&#2381;म&#2366;","(C) Specific heat | व&#2367;श&#2367;ष&#2381;ट ऊष&#2381;म&#2366;","(D) Latent heat of steam | भ&#2366;प क&#2368; ग&#2369;प&#2381;त ऊष&#2381;म&#2366;"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is the boiling point of water in Fahrenheit scale? | फ&#2366;रन&#2375;ह&#2366;इड स&#2381;क&#2375;ल म&#2375;&#2306; प&#2366;न&#2368; क&#2366; क&#2381;वथन&#2366;&#2306;क (boiling point) क&#2367;तन&#2366; ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) 212&#176;F ","(B) 180&#176;F ","(C) 112&#176;F ","(D) 100&#176;F "],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What is the freezing point of water in kelvin scale (K)? | क&#2375;ल&#2381;व&#2367;न स&#2381;क&#2375;ल म&#2375;&#2306; प&#2366;न&#2368; क&#2366; जम&#2366;व ब&#2367;&#2306;द&#2369; क&#2381;य&#2366; ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) 373&#176;K ","(B) 313&#176;K ","(C) 303&#176;K ","(D) 273&#176;K "],
+           answer:3,
+           
+       },
+       {
+           question:"Q. Convert 45&#176;C (Centigrade) into &#176;F (Fahrenheit). | 45 &#176; C (स&#2375;&#2306;ट&#2368;ग&#2381;र&#2375;ड) क&#2379; &#176; F (फ&#2364;&#2366;र&#2375;नह&#2366;इट) म&#2375;&#2306; पर&#2367;वर&#2381;त&#2367;त कर&#2375;&#2306;&#2404;",
+           options:["(A) 110&#176;F ","(B) 111&#176;F ","(C) 112&#176;F ","(D) 113&#176;F "],
+           answer:3,
+           
+       },
+       {
+           question:"Q. At what temperature will Fahrenheit and centigrade thermometers give the same reading? | क&#2367;स त&#2366;पम&#2366;न पर फ&#2366;र&#2375;नह&#2366;इट और स&#2375;&#2306;ट&#2368;ग&#2381;र&#2375;ट थर&#2381;म&#2366;म&#2368;टर सम&#2366;न र&#2368;ड&#2367;&#2306;ग द&#2375;त&#2375; ह&#2376;&#2306;?",
+           options:["(A) -38&#176;C","(B) -39&#176;C","(C) -40&#176;C","(D) -41&#176;C "],
+           answer:2,
+           
+       },
+       {
+           question:"Q. Convert - 273&#176;C (Centigrade) into kelvin scale? | - 273 ड&#2367;ग&#2381;र&#2368; स&#2375;ल&#2381;स&#2367;यस (स&#2375;&#2306;ट&#2368;ग&#2381;र&#2375;ड) क&#2375;ल&#2381;व&#2367;न स&#2381;क&#2375;ल म&#2375;&#2306; बदल&#2375;?",
+           options:["(A) 0&#176;K","(B) 1&#176;K ","(C) 2&#176;K ","(D) 3&#176;K"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What is the value in degree centigrade for 20&#176;F? | 20&#176;F क&#2366; म&#2366;न ड&#2368;ग&#2381;र&#2368; स&#2375;&#2306;ट&#2368;ग&#2381;र&#2375;ट म&#2375;&#2306; क&#2381;य&#2366; ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) -6.37&#176;C ","(B) -6.47&#176;C ","(C) -6.57&#176;C ","(D) -6.67&#176;C "],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is the maximum temperature that can be measured by mercury thermometer? | व&#2379; अध&#2367;कतम त&#2366;पम&#2366;न क&#2381;य&#2366; ह&#2376; ज&#2379; मरक&#2381;य&#2370;र&#2368; थर&#2381;म&#2366;म&#2368;टर द&#2381;व&#2366;र&#2366; म&#2366;प&#2366; ज&#2366; सकत&#2366; ह&#2376;?",
+           options:["(A) 400&#176;C ","(B) 300&#176;C ","(C) 200&#176;C ","(D) 100&#176;C "],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is the name of temperature measuring instrument? | त&#2366;पम&#2366;न म&#2366;पन&#2375; क&#2375; उपकरण क&#2366; न&#2366;म क&#2381;य&#2366; ह&#2376;?<br /><img src='https://1.bp.blogspot.com/-sHrqWHOlkVQ/X8Yl3bI77FI/AAAAAAAAHP0/UUYA3r9aNpgCo6QX4qrmUf8JgO8Ur6Q4gCLcBGAsYHQ/s0/payrometer.png'>",
+           options:["(A) Vapour pressure thermometer | व&#2375;पर- प&#2381;र&#2375;शर थर&#2381;म&#2366;म&#2368;टर ","(B) Bimetallic thermometer | ब&#2366;ई-म&#2368;ट&#2381;र&#2367;क थर&#2381;म&#2366;म&#2368;टर","(C) Radiation pyrometer | र&#2375;ड&#2367;एशन  प&#2366;इर&#2379;म&#2368;टर ","(D) Thermoelectric pyrometer | थर&#2381;म&#2379;इल&#2375;क&#2381;ट&#2381;र&#2367;क प&#2366;इर&#2379;म&#2368;टर"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. Which instrument is used to measure temperatures of red hot metals up to 3000&#176;C? | 3000 &#176; C तक ल&#2366;ल गर&#2381;म ध&#2366;त&#2369;ओ&#2306; क&#2375; त&#2366;पम&#2366;न क&#2379; म&#2366;पन&#2375; क&#2375; ल&#2367;ए क&#2367;स उपकरण क&#2366; उपय&#2379;ग क&#2367;य&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Radiation pyrometer | र&#2375;ड&#2368;एशन प&#2366;इर&#2379;म&#2368;टर ","(B) Thermoelectric pyrometer | थर&#2381;म&#2379;इल&#2375;क&#2381;ट&#2381;र&#2367;क प&#2366;इर&#2379;म&#2368;टर","(C) Bimetal thermometer | ब&#2366;ई-म&#2375;टल थर&#2381;म&#2366;म&#2368;टर","(D) Alcohol thermometer | एल&#2381;क&#2379;हल थर&#2381;म&#2366;म&#2368;टर"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. Which kind of heat transmission takes places by up-ward flow? | क&#2367;स प&#2381;रक&#2366;र क&#2368; ऊष&#2381;म&#2366; स&#2306;चरण ऊपर क&#2368; ओर प&#2381;रव&#2366;ह द&#2381;व&#2366;र&#2366; ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) Conduction | च&#2366;लन ","(B) Convection | सहवन ","(C) Radiation | व&#2367;क&#2367;रण ","(D) Reflection | पर&#2366;वर&#2381;तन "],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is called if the length of the solid expands when heated? | यद&#2367; गर&#2381;म करन&#2375; पर ठ&#2379;स क&#2368; लम&#2381;ब&#2366;ई बढ&#2364;त&#2368; ह&#2376;, त&#2379; क&#2381;य&#2366; कहल&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Linear expansion | र&#2375;ख&#2368;य प&#2381;रस&#2366;र","(B) Superficial expansion | स&#2369;पर फ&#2375;शल प&#2381;रस&#2366;र","(C) Cubical expansion | घन&#2368;य प&#2381;रस&#2366;र","(D) Area expansion | क&#2381;ष&#2375;त&#2381;र&#2368;य प&#2381;रस&#2366;र"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What is the change in length per unit original length per degree rise in temperature is called? | त&#2366;पम&#2366;न म&#2375;&#2306; प&#2381;रत&#2367; क&#2367;ग&#2381;र&#2366; म&#2370;ल लम&#2381;ब&#2366;ई म&#2375;&#2306; पर&#2367;वर&#2381;तन क&#2379; क&#2381;य&#2366; कह&#2366; ज&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Co-efficient of friction | घर&#2381;ण ग&#2369;ण&#2366;&#2306;क","(B) Co-efficient of linear expansion | र&#2375;ख&#2368;य प&#2381;रस&#2366;र ग&#2369;ण&#2366;&#2306;क","(C) Co-efficient of superficial expansion | स&#2369;पर फ&#2375;शल प&#2381;रस&#2366;र ग&#2369;ण&#2366;&#2306;क","(D) Co-efficient of cubical expansion | घन&#2368;य प&#2381;रस&#2366;र ग&#2369;ण&#2366;&#2306;क"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. What is the unit of co-efficient of linear expansion? | र&#2375;ख&#2368;य प&#2381;रस&#2366;र ग&#2369;ण&#2366;&#2306;क क&#2368; इक&#2366;ई क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) Number /&#176;C","(B) Number /&#176;C / meter length","(C) Number /&#176;C / mm length","(D) Number /&#176;C / cm length"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. Calculate the amount of heat required to raise the temperature of 85.5 gm of sand from 20&#176;C to 35&#176;C specific heat of sand = 0.1. | 20&#176;C स&#2375; 35&#176;C स&#2375; तक 85.5 ग&#2381;र&#2366;म र&#2375;त क&#2366; त&#2366;पम&#2366;न बढ&#2364;&#2366;न&#2375; क&#2375;	ल&#2367;ए आवश&#2381;यक ऊष&#2381;म&#2366; क&#2368; म&#2366;त&#2381;र&#2366; क&#2368; गणन&#2366; कर&#2375;&#2306;&#2404;",
+           options:["(A) 128.25 Joules","(B) 125.28 Joules","(C) 128.26 Joules","(D) 126.28 Joules "],
+           answer:0,
+           
+       },
+      {
+           question:"Q. What is the specific heat of the material if we require 510 calories to raise the temperature of 170 gm of material from 50&#176;C to 80&#176;C? | पद&#2366;र&#2381;थ क&#2368;  व व&#2367;श&#2367;ष&#2381;ट ऊष&#2381;म&#2366; क&#2381;य&#2366; ह&#2376;, यद&#2367; 50&#176;C स&#2375; 80&#176;C तक त&#2366;पम&#2366;न बढ&#2364;&#2366;न&#2375; क&#2375; ल&#2367;ए 510 क&#2376;ल&#2379;र&#2368; क&#2368; आवश&#2381;यकत&#2366; ह&#2379;त&#2368; ह&#2376;?",
+           options:["(A) 0.1 ","(B) 0.01 ","(C) 1.1 ","(D) 1.11 "],
+           answer:0,
+           
+       },
+       {
+           question:"Q. Which one has the highest thermal conductivity? | क&#2367;सम&#2375;&#2306; ऊष&#2381;म&#2366; च&#2366;लकत&#2366; सर&#2381;व&#2366;ध&#2367;क ह&#2379;त&#2368; ह&#2376;?",
+           options:["(A) Solid ice | ठ&#2379;स बर&#2381;फ ","(B) Melting ice | पघलत&#2368; बर&#2381;फ ","(C) Water | प&#2366;न&#2368;","(D) Steam | व&#2366;ष&#2381;प"],
+           answer:0,
+           
+       },
+          
+               {
+           question:"Q. Which machine converts mechanical energy into electrical energy?| क&#2380;न-स&#2368; मश&#2368;न य&#2366;&#2306;त&#2381;र&#2367;क ऊर&#2381;ज&#2366; क&#2379; व&#2367;द&#2381;य&#2369;त ऊर&#2381;ज&#2366; म&#2375;&#2306; पर&#2367;वर&#2381;त&#2367;त करत&#2368; ह&#2376;?",
+           options:["(A) Battery | ब&#2376;टर&#2368;","(B) Generator | जनर&#2375;टर ","(C)  Heater | ह&#2368;टर","(D) Iron box | ल&#2379;ह&#2375; क&#2366; बक&#2381;स&#2366;"],
+           answer:1,
+       },
+       {
+           question:"Q. Which is the unit of current? | ध&#2366;र&#2366; क&#2368; इक&#2366;ई क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) Ampere | एम&#2381;प&#2367;यर","B) Volt | व&#2379;ल&#2381;ट","(C) Ohm | ओम","(D) Watt | व&#2366;ट"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. Which is the unit of resistance? | प&#2381;रत&#2367;र&#2379;ध क&#2368; इक&#2366;ई क&#2381;य&#2366; ह&#2376;? ",
+           options:["(A) Ampere | एम&#2381;प&#2367;यर","(B) Volt | व&#2379;ल&#2381;ट","(C) Ohm | ओम ","(D) Watt | व&#2366;ट"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the flow of electrons in any conductor? | क&#2367;स&#2368; क&#2306;डक&#2381;टर म&#2375;&#2306; इल&#2375;क&#2381;ट&#2381;र&#2377;न क&#2366; प&#2381;रव&#2366;ह क&#2381;य&#2366; ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) Voltage | व&#2379;ल&#2381;ट&#2375;ज ","(B) Current | ध&#2366;र&#2366;","(C) Resistance | प&#2381;रत&#2367;र&#2379;ध","(D)  Power | शक&#2381;त&#2367;"],
+           answer:1,
+           
+       },
+       {
+           question:"Q. Which property of a substance opposes the flow of electric current? | पद&#2366;र&#2381;थ क&#2375; क&#2380;न-स&#2375; ग&#2369;ण क&#2375; क&#2366;रण वह व&#2367;द&#2381;य&#2369;त क&#2375; प&#2381;रव&#2366;ह क&#2366; व&#2367;र&#2379;ध करत&#2366; ह&#2376;?",
+           options:["(A) Current | ध&#2366;र&#2366;","(B) Voltage | व&#2379;ल&#2381;ट&#2375;ज","(C) Resistance | प&#2381;रत&#2367;र&#2379;ध","(D) EMF | ईएमएफ"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. Which is a very good conductor? | क&#2380;न-स&#2366; बह&#2369;त अच&#2381;छ&#2366; क&#2306;डक&#2381;टर ह&#2376;?",
+           options:["(A) Copper | त&#2366;&#2306;ब&#2366;","(B) Cast iron | क&#2366;स&#2381;ट आयरन","(C) Wrought iron | र&#2377;ट आयरन","(D) Steel | स&#2381;ट&#2368;ल"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. Which mineral insulator? | क&#2380;नस&#2366; खन&#2367;ज इन&#2381;स&#2369;ल&#2375;टर ह&#2376;?",
+           options:["(A) Glass | क&#2366;&#2305;च ","(B) Quartz | क&#2381;व&#2366;र&#2381;ट&#2381;ज&#2364;","(C) Mica | म&#2366;ईक&#2366; ","(D) Porcelain | प&#2379;र&#2381;सल&#2368;न"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the total resistance if three resistances of 3 ohms, 9 ohms and 5 ohms are connected in series? | यद&#2367; 3 ओम, 9 ओम और 5 ओम क&#2375; त&#2368;न प&#2381;रत&#2367;र&#2379;ध स&#2368;र&#2368;ज म&#2375;&#2306; ज&#2379;ड&#2364;न&#2375; पर क&#2369;ल प&#2381;रत&#2367;र&#2379;ध क&#2381;य&#2366; ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) 11 ohms | 11 ओम ","(B) 7ohm | 7 ओम ","(C) 17 ohms | 17 ओम ","(D) 1/17 ohms | 1/17 ओम"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the total resistance if two resistances of 4 ohms and 6 ohms are connected in parallel? | 4 ओम और 6 ओम क&#2375; द&#2379; प&#2381;रत&#2367;र&#2379;ध क&#2379; सम&#2366;न&#2366;&#2306;तर म&#2375;&#2306; ज&#2379;ड&#2364;न&#2375; पर क&#2369;ल प&#2381;रत&#2367;र&#2379;ध क&#2381;य&#2366; ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) 5 Ohm","(B) 2.5 Ohm","(C) 2.4 Ohm","(D) 10 Ohm"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the total resistance if three resistances of 4 ohms, 6 ohms and 8 ohms respectively are connected in parallel? | यद&#2367; 4 ओम, 6 ओम और 8 ओम क&#2375; त&#2368;न प&#2381;रत&#2367;र&#2379;ध&#2379;&#2306; क&#2379; सम&#2366;न&#2381;तर क&#2381;रम म&#2375;&#2306; ज&#2379;ड&#2364;&#2366; ज&#2366;ए त&#2379; क&#2369;ल प&#2381;रत&#2367;र&#2379;ध क&#2367;तन&#2366; ह&#2379;ग&#2366;?",
+           options:["(A) 24 Ohm","(B) 13 Ohm","(C) 24/13 Ohm","(D) 13/24 Ohm"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. Which is the same in series connection of resistors in a circuit? | सर&#2381;क&#2367;ट म&#2375;&#2306; प&#2381;रत&#2367;र&#2379;ध&#2379;&#2306; क&#2375; श&#2381;र&#2371;&#2306;खल&#2366; कन&#2375;क&#2381;शन म&#2375;&#2306; क&#2380;न स&#2366; सम&#2366;न ह&#2376;?",
+           options:["(A) Current | ध&#2366;र&#2366; ","(B) Voltage | व&#2379;ल&#2381;ट&#2375;ज","(C) Resistance | प&#2381;रत&#2367;र&#2379;ध","(D) Power | शक&#2381;त&#2367; "],
+           answer:0,
+           
+       },
+       {
+           question:"Q. Which law states that at constant temperature the current passing through a closed circuit is directly proportional to the potential difference and inversely proportional to the resistance? | क&#2380;न स&#2366; न&#2367;यम कहत&#2366; ह&#2376; क&#2367; स&#2381;थ&#2367;र त&#2366;पम&#2366;न पर एक ब&#2306;द सर&#2381;क&#2367;ट स&#2375; ग&#2369;जरन&#2375; व&#2366;ल&#2368; ध&#2366;र&#2366; स&#2306;भ&#2366;व&#2367;त अ&#2306;तर क&#2375; स&#2368;ध&#2375; आन&#2369;प&#2366;त&#2367;क और प&#2381;रत&#2367;र&#2379;ध क&#2375; व&#2381;य&#2369;त&#2381;क&#2381;रम&#2366;न&#2369;प&#2366;त&#2368; ह&#2379;त&#2368; ह&#2376;?",
+           options:["(A) Ohm's law | ओम क&#2366; न&#2367;यम","(B) Lenz's law | ल&#2375;न&#2381;ज क&#2366; न&#2367;यम","(C) Newton's law | न&#2381;य&#2369;टन क&#2366; न&#2367;यम","(D) Hooke's law | ह&#2369;क क&#2366; न&#2367;यम"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. What is the resistance? | प&#2381;रत&#2367;र&#2379;ध क&#2381;य&#2366; ह&#2379;ग&#2366; यद&#2367; - I = 11.5 Amps, V = 380 Volts <br><img src=' https://lh5.googleusercontent.com/K4MPFTJOj8lgk2hEVd-YFMCJqcjzcOly12_ulaZ9mQLCFf4rKGn1DW7-qdKvj-fPf7WLds9MeMxhEkOYiBsioBAqGIsVK-9jCtp3nBfa63661IzFr9OZlSQI08lXAI7snLs2FEnt=s0'>",
+           options:["(A) 13 Ohm","(B) 23 Ohm","(C) 33 Ohm","(D) 43 Ohm"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the current? R = 50 Ohms, V = 220 Volts | यह&#2366;&#2306; ध&#2366;र&#2366; क&#2366; म&#2366;न क&#2381;य&#2366; ह&#2376; ? <br><img src=' https://lh4.googleusercontent.com/iKTkWhn2SHVMHu-EIXOXrQpms29ZDJLY4SfSz4WYAyjk0G0xDDVcK8c135BzW2C0YDPOjUHegFvWigXxHlgkfROeFCfEYHGgj_tNG89l_ppbMhkwcovHtmb7IdWYxKYLD7gVG8qj=s0'>",
+           options:["(A) 4.1 Amp","(B) 4.2 Amp","(C) 4.3 Amp","(D) 4.4 Amp"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is the voltage? R = 250 Ohms, I = 0.44 Amps | व&#2379;ल&#2381;ट&#2375;ज क&#2381;य&#2366; ह&#2379;ग&#2366;?<br><img src=' https://lh6.googleusercontent.com/RAXX4leFIlsVoKjj6ltuN4rsneZkNhHPShnZQkCgutM1p5hATDmcTsNZafWXwYfrjIP1B-b8qVL5xeXnUNnx8FYSsm_WWP9cblxqIHrxH4IPthOHBMWLveZHqpNEwqmY1K_gfD_j=s0'>",
+           options:["(A) 100 Volt","(B) 105 Volt","(C) 108 Volt","(D) 110 Volt"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. Which statement is correct according to Ohm's law? | ओम क&#2375; न&#2367;यम क&#2375; अन&#2369;स&#2366;र क&#2380;न स&#2366; कथन सह&#2368; ह&#2376;?",
+           options:["(A) I &#8733; 1/V","(B) I &#8733; R","(C) I &#8733; V/R","(D) I &#8733; R/V"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the filament resistance if a 6 volt bulb draws a current of 0.5 Amps? | यद&#2367; 6 व&#2379;ल&#2381;ट क&#2366; बल&#2381;ब 0.5 एम&#2381;प&#2368;यर क&#2368; ध&#2366;र&#2366; ख&#2368;&#2306;चत&#2366; ह&#2376; त&#2379; फ&#2367;ल&#2366;म&#2375;&#2306;ट प&#2381;रत&#2367;र&#2379;ध क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) 12 Ω","(B) 10 Ω","(C) 3 Ω","(D) 1.2 Ω"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. How much watt second in 1 watt hour? | 1 व&#2366;ट घ&#2306;ट&#2375; म&#2375;&#2306; क&#2367;तन&#2366; व&#2366;ट स&#2375;क&#2306;ड ह&#2379;त&#2366; ह&#2376;?",
+           options:["(A) 1000 Watt","(B) 2000 Watt","(C) 3600 Watt","(D) 4000 Watt"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the power if an emf of one volt causes a current flow of 1 ampere?| यद&#2367; एक व&#2379;ल&#2381;ट क&#2366; व&#2367;द&#2381;य&#2369;त व&#2366;हक बल 1 एम&#2381;प&#2367;यर क&#2368; ध&#2366;र&#2366; प&#2381;रव&#2366;ह&#2367;त करत&#2366; ह&#2376; त&#2379; उसक&#2368; शक&#2381;त&#2367; क&#2381;य&#2366; ह&#2379;ग&#2368;?",
+           options:["(A) 1 watt | 1 व&#2366;ट","(B) 1 kilowatt | एक क&#2367;ल&#2379;व&#2366;ट","(C) 1HP | 1 एचप&#2368;","(D) 1 Kilowatt hour |1 क&#2367;ल&#2379; व&#2366;ट घण&#2381;ट&#2366;"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. Which is equal to electric power? | व&#2367;द&#2381;य&#2369;त शक&#2381;त&#2367; क&#2367;सक&#2375; बर&#2366;बर ह&#2379;त&#2368; ह&#2376;?",
+           options:["(A) <img src=' https://lh4.googleusercontent.com/YeTnzZFIpbvmyWZLTwgyKk5B1uOjL18t7A09l6munQPQ_lhkPjbPIN6o6XpRlNAbHzAdRKu4u5UFfUFYwI8RlOyiRwdfO8IDvhc9VpfFHqewGoiGEdJALWcPc2dZDtEqDt3CvVU-=s0'>","(B) <img src=' https://lh6.googleusercontent.com/tvaSqxuSADRcDp823yz6Hs7iulusMoeeBrMlJ2ps2Rj1jEpeve8v3Rz5Clp7sOVIB2xRzJZq3rYUXb_aj8gAaamEa8_kWOZEWjF_8r0LlycBQW4qPqtwbQAsHJIEQzGtpaxASQIk=s0'>","(C) <img src=' https://lh4.googleusercontent.com/KCqef7qEFb54_JfM_8vwQjPt5gNJPdpNFJse90zCkwpIq8sxToyuWBDnPoxaST8JHBwXie_X24NS1CdjH8bxVaXgcj3AAq5fnyRmhrqk1-qmrAd8eWV9Ddw0hswCFcNIprMhc2-Z=s0'>","(D) <img src=' https://lh3.googleusercontent.com/4fTHddtC1ajqDg_6gTIUso7s6nCdp-Oa-ExIP9AsE0kg8rCjxEjbm7lRO-nPqufWUVPNF_B0N4-4eTHD8gkvjC79ujq8QZ_WfA1EL6DHyURvMiVjFeI8Eg_RbtUUX1YYWBmoavip=s0'>"],
+           answer:0,
+           
+       },
+      {
+           question:"Q. How much power does it consume if an electric heater draws a current of 10 amps at 200 volts? | यद&#2367; एक इल&#2375;क&#2381;ट&#2381;र&#2367;क ह&#2368;टर 200 व&#2379;ल&#2381;ट पर 10 एम&#2381;प&#2368;यर क&#2368; ध&#2366;र&#2366; ख&#2368;&#2306;चत&#2366; ह&#2376; त&#2379; यह क&#2367;तन&#2368; ब&#2367;जल&#2368; क&#2368; खपत करत&#2366; ह&#2376;?",
+           options:["(A) 2000 Watt","(B) 2010 Watt","(C) 2020 Watt","(D) 2030 Watt"],
+           answer:0,
+       },
+       {
+           question:"Q. What is the resistance of an electric iron if the rating of electric iron is 220 V and 500 watts? | एक व&#2367;द&#2381;य&#2369;त आयरन क&#2366; प&#2381;रत&#2367;र&#2379;ध क&#2381;य&#2366; ह&#2376; यद&#2367; व&#2367;द&#2381;य&#2369;त आयरन क&#2368; र&#2375;ट&#2367;&#2306;ग 220 V और 500 व&#2366;ट ह&#2376;?",
+           options:["(A) 94.8 ohms","B) 95.8 ohms","(C) 96.8 ohms","(D) 97.8 ohms"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the voltage of the immersion heater? | इमर&#2381;शन ह&#2368;टर क&#2366; व&#2379;ल&#2381;ट&#2375;ज क&#2367;तन&#2366; ह&#2379;त&#2366; ह&#2376;? - P = 500 watts I = 2.27 Amps <br><img src=' https://lh3.googleusercontent.com/4i9DIzeVxQbaxbUpRcUSy2SSHoMTFkXrMsJdIDCkkXb2BD5R4praIkTxaooxrUbQDQ9tV62nxtt_ZZ-ySSQLcec3lv7tE5IX3_lNDz3sAadjZzSwNNv4XYt0gRpPgQ7ddUTZsSch=s0'>",
+           options:["(A) 200.3 volts","(B) 210.3 volts","(C) 220.3 volts","(D) 230.3 volts"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What is the unit of intensity of the magnetic field? | च&#2369;&#2306;बक&#2368;य क&#2381;ष&#2375;त&#2381;र क&#2368; त&#2368;व&#2381;रत&#2366; क&#2368; इक&#2366;ई क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) wb/m","(B) m/wb","(C) Hertz | हर&#2381;ट&#2381;ज़","(D) Coulomb | क&#2370;लम&#2381;ब"],
+           answer:0,
+           
+       },
+       {
+           question:"Q. Which law states electromagnetic induction? | व&#2367;द&#2381;य&#2369;त च&#2369;म&#2381;बक&#2368;य प&#2381;र&#2375;रण क&#2375; ब&#2366;र&#2375; म&#2375;&#2306; क&#2380;न स&#2366; क&#2366;न&#2370;न बत&#2366;त&#2366; ह&#2376;?",
+           options:["(A) Ohm's law | ओम क&#2366; न&#2367;यम","(B) Hooke's law | ह&#2369;क क&#2366; न&#2367;यम","(C) Lenz's law | ल&#2375;&#2306;ज़ क&#2366; न&#2367;यम","(D) Faraday's law | फ&#2376;र&#2366;ड&#2375; क&#2366; न&#2367;यम"],
+           answer:3,
+           
+       },
+       {
+           question:"Q. What is the formula for induced emf? | प&#2381;र&#2375;र&#2367;त ईएमएफ क&#2366; स&#2370;त&#2381;र क&#2381;य&#2366; ह&#2376;?",
+           options:["(A) B<sup>2</sup>L sin volts","(B) BL sin volts","(C) BLV sin volts","(D) B<sup>2</sup>V sin volts"],
+           answer:2,
+           
+       },
+       {
+           question:"Q. What does EMF stand for? | EMF क&#2366; क&#2381;य&#2366; अर&#2381;थ ह&#2376;?",
+           options:["(A) Electronic Magnetic Force | इल&#2375;क&#2381;ट&#2381;र&#2377;न&#2367;क च&#2369;&#2306;बक&#2368;य बल","(B) Electro Motive Force | इल&#2375;क&#2381;ट&#2381;र&#2379; म&#2379;ट&#2367;व फ&#2366;&#2373;र&#2381;स","(C) Electromagnetic Force | इल&#2375;क&#2381;ट&#2381;र&#2379; म&#2376;ग&#2381;न&#2375;ट&#2367;क फ&#2366;&#2373;र&#2381;स","(D) Electromated Force | इल&#2375;क&#2381;ट&#2381;र&#2379;म&#2375;ट&#2375;ड"],
+           answer:1,
+           
+       },
+
+ ]
+
+
+ const questionNumber = document.querySelector(".question-number");
+ const questionText = document.querySelector(".question-text");
+ const optionContainer = document.querySelector(".option-container");
+ const answersIndicatorContainer = document.querySelector(".answers-indicator");
+ const homeBox = document.querySelector(".home-box");
+ const quizBox = document.querySelector(".quiz-box");
+ const resultBox = document.querySelector(".result-box");
+
+ let questionCounter = 0;
+ let currentQuestion;
+ let availableQuestions = [];
+ let availableOptions = [];
+ let correctAnswers = 0;
+ let attempt = 0;
+
+ // push the questions into  availableQuestions Array
+ function setAvailableQuestions(){
+    const totalQuestion = quiz.length;
+    for(let i=0; i<totalQuestion; i++){
+      availableQuestions.push(quiz[i])
+    }
+ }
+ 
+ // set question number and question and options
+ function getNewQuestion(){
+    // set question number 
+    questionNumber.innerHTML = "Question " + (questionCounter + 1) + " of " + quiz.length;
+
+    // set question text
+    // get random question
+    const questionIndex = availableQuestions[Math.floor(Math.random() * availableQuestions.length)]
+    currentQuestion = questionIndex;
+    questionText.innerHTML = currentQuestion.q;
+    // get the position of 'questionIndex' from the availableQuestion Array
+    const index1= availableQuestions.indexOf(questionIndex);
+    // remove the 'questionIndex' from the availableQuestion Array, so that the question does not repeat
+    availableQuestions.splice(index1,1);
+     console.log(availableQuestions)     
+    // set options
+    // get the length of options
+    const optionLen = currentQuestion.options.length
+    // push options into availableOptions Array
+    for(let i=0; i<optionLen; i++){
+       availableOptions.push(i)
+    }
+    optionContainer.innerHTML = '';
+    let animationDelay = 0.15;
+    // create options in html
+    for(let i=0; i<optionLen; i++){
+       // random option
+       const optonIndex = availableOptions[Math.floor(Math.random() * availableOptions.length)];
+       // get the position of 'optonIndex' from the availableOptions Array
+       const index2 =  availableOptions.indexOf(optonIndex);
+       // remove the  'optonIndex' from the availableOptions Array , so that the option does not repeat
+       availableOptions.splice(index2,1);
+       const option = document.createElement("div");
+       option.innerHTML = currentQuestion.options[optonIndex];
+       option.id = optonIndex;
+       option.style.animationDelay =animationDelay + 's';
+       animationDelay = animationDelay + 0.15;
+       option.className = "option";
+       optionContainer.appendChild(option)
+       option.setAttribute("onclick","getResult(this)");
+    }
+
+    questionCounter++
+ }
+
+ // get the result of current attempt question
+ function getResult(element){
+     const id = parseInt(element.id);
+     // get the answer by comparing the id of clicked option
+     if(id === currentQuestion.answer){
+      // set the green color to the correct option
+      element.classList.add("correct");
+      // add the indicator to correct mark
+      updateAnswerIndicator("correct");
+      correctAnswers++;
+     }
+     else{
+      // set the red color to the incorrect option
+      element.classList.add("wrong");
+      // add the indicator to wrong mark
+      updateAnswerIndicator("wrong");
+
+        // if the answer is incorrect then show the correct option by adding green color the correct option
+        const optionLen = optionContainer.children.length;
+        for(let i=0; i<optionLen; i++){
+          if(parseInt(optionContainer.children[i].id) === currentQuestion.answer){
+              optionContainer.children[i].classList.add("correct");     
+          }
+        }   
+       
+     }
+   attempt++;
+   unclickableOptions();
+ }
+ 
+ // make all the options unclickable once the user select a option (RESTRICT THE USER TO CHANGE THE OPTION AGAIN)
+ function unclickableOptions(){
+    const optionLen = optionContainer.children.length;
+    for(let i=0 ; i<optionLen; i++){
+      optionContainer.children[i].classList.add("already-answered");
+    }
+ }
+ 
+ function answersIndicator(){
+    answersIndicatorContainer.innerHTML = '';
+    const totalQuestion = quiz.length;
+    for(let i=0; i<totalQuestion; i++){
+        const indicator = document.createElement("div");
+         answersIndicatorContainer.appendChild(indicator);
+    }
+ }
+ function updateAnswerIndicator(markType){
+     answersIndicatorContainer.children[questionCounter-1].classList.add(markType)
+ }
+
+ function next(){
+   if(questionCounter === quiz.length){
+      quizOver();
+   }
+   else{
+     getNewQuestion();
+   }
+ }
+
+ function quizOver(){
+  // hide quiz Box
+  quizBox.classList.add("hide");
+  // show result Box
+  resultBox.classList.remove("hide");
+    quizResult();
+ }
+ // get the quiz Result
+ function quizResult(){
+   resultBox.querySelector(".total-question").innerHTML = quiz.length;
+   resultBox.querySelector(".total-attempt").innerHTML = attempt;
+   resultBox.querySelector(".total-correct").innerHTML = correctAnswers;
+   resultBox.querySelector(".total-wrong").innerHTML = attempt - correctAnswers;
+   const percentage = (correctAnswers/quiz.length)*100;
+   resultBox.querySelector(".percentage").innerHTML =percentage.toFixed(2) + "%";
+   resultBox.querySelector(".total-score").innerHTML =correctAnswers +" / " + quiz.length;
+ }
+
+ function resetQuiz(){
+    questionCounter = 0;
+    correctAnswers = 0;
+    attempt = 0;
+ }
+
+ function tryAgainQuiz(){
+   // hide the resultBox
+   resultBox.classList.add("hide");
+   // show the quizBox
+   quizBox.classList.remove("hide");
+     resetQuiz();
+     startQuiz();
+ }
+
+ function goToHome(){
+  // hide result Box
+  resultBox.classList.add("hide");
+  // show home box
+  homeBox.classList.remove("hide");
+  resetQuiz();
+ }
+ 
+ // #### STARTING POINT ####
+
+ function startQuiz(){
+    
+     // hide home box 
+     homeBox.classList.add("hide");
+     // show quiz Box
+     quizBox.classList.remove("hide");
+    // first we will set all questions in availableQuestions Array
+    setAvailableQuestions();
+    // second we will call getNewQuestion(); function
+    getNewQuestion();
+    // to create indicator of answers
+    answersIndicator();
+
+ }
+
+
+window.onload = function (){
+  homeBox.querySelector(".total-question").innerHTML = quiz.length;
+}
+
+
+</script>
